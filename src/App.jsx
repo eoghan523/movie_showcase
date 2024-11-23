@@ -8,11 +8,7 @@ function App() {
 
   return (
     <>
-      <CarouselWithContent />
       <div className="flex justify-center">
-        <h1> Dev API Text</h1>
-
-        <p> Welcome to Movie para</p>
 
         <MovieSearch />
       </div>

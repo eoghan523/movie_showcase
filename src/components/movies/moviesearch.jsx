@@ -3,51 +3,28 @@ import { fetchMovieData, fetchMovieDetailedData } from "../../api/movieApi.js";
 import { Button } from "@material-tailwind/react";
 
 const MovieSearch = () => {
-     // User movie name search:
-     const [searchQuery, setSearchQuery] = useState("");
-     // Movie Data:
-   const [movieId, setMovieId] = useState("");
-   const [movieTitle, setMovieTitle] = useState("");
-   const [movieActors, setMovieActors] = useState("");
-   const [movieAwards, setMovieAwards] = useState("");
-   const [movieCountry, setMovieCountry] = useState("");
-   const [movieDirector, setMovieDirector] = useState("");
-   const [movieGenre, setMovieGenre] = useState("");
-   const [movieLanguage, setMovieLanguage] = useState("");
-   const [moviePlot, setMoviePlot] = useState("");
-   const [moviePoster, setMoviePoster] = useState("");
-   const [movieRated, setMovieRated] = useState("");
-   const [movieRuntime, setMovieRuntime] = useState("");
-   const [movieWriter, setMovieWriter] = useState("");
-   const [movieYear, setMovieYear] = useState("");
-   const [movieImdbRating, setMovieImdbRating] = useState("");
- 
      // Page States:
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState("");
- 
-    // User movie name search:
-  const [searchQuery, setSearchQuery] = useState("");
-    // Movie Data:
-  const [movieId, setMovieId] = useState("");
-  const [movieTitle, setMovieTitle] = useState("");
-  const [movieActors, setMovieActors] = useState("");
-  const [movieAwards, setMovieAwards] = useState("");
-  const [movieCountry, setMovieCountry] = useState("");
-  const [movieDirector, setMovieDirector] = useState("");
-  const [movieGenre, setMovieGenre] = useState("");
-  const [movieLanguage, setMovieLanguage] = useState("");
-  const [moviePlot, setMoviePlot] = useState("");
-  const [moviePoster, setMoviePoster] = useState("");
-  const [movieRated, setMovieRated] = useState("");
-  const [movieRuntime, setMovieRuntime] = useState("");
-  const [movieWriter, setMovieWriter] = useState("");
-  const [movieYear, setMovieYear] = useState("");
-  const [movieImdbRating, setMovieImdbRating] = useState("");
-
-    // Page States:
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+     const [loading, setLoading] = useState(false);
+     const [error, setError] = useState("");
+   
+      // User movie name search:
+    const [searchQuery, setSearchQuery] = useState("");
+      // Movie Data:
+    const [movieId, setMovieId] = useState("");
+    const [movieTitle, setMovieTitle] = useState("");
+    const [movieActors, setMovieActors] = useState("");
+    const [movieAwards, setMovieAwards] = useState("");
+    const [movieCountry, setMovieCountry] = useState("");
+    const [movieDirector, setMovieDirector] = useState("");
+    const [movieGenre, setMovieGenre] = useState("");
+    const [movieLanguage, setMovieLanguage] = useState("");
+    const [moviePlot, setMoviePlot] = useState("");
+    const [moviePoster, setMoviePoster] = useState("");
+    const [movieRated, setMovieRated] = useState("");
+    const [movieRuntime, setMovieRuntime] = useState("");
+    const [movieWriter, setMovieWriter] = useState("");
+    const [movieYear, setMovieYear] = useState("");
+    const [movieImdbRating, setMovieImdbRating] = useState("");
 
   const handleSearch = async () => {
     if (!searchQuery) return; 
@@ -121,10 +98,6 @@ const MovieSearch = () => {
       {loading && <p>Loading...</p>}
 
       {error && <p className="text-red-500">{error}</p>}
-
-      {movieId && !loading && !error && (
-        <p className="text-lg font-semibold">MoveID: {movieId}</p>
-      )}
       
 
       {movieTitle && !loading && !error && (
@@ -140,8 +113,8 @@ const MovieSearch = () => {
         <p className="text-lg font-semibold">Country: {movieCountry}</p>
       )}
 
-      {movieActor && !loading && !error && (
-        <p className="text-lg font-semibold">Actor: {movieActor}</p>
+      {movieActors && !loading && !error && (
+        <p className="text-lg font-semibold">Actor: {movieActors}</p>
       )}
 
       {movieDirector && !loading && !error && (
@@ -166,36 +139,10 @@ const MovieSearch = () => {
 
       
       {moviePoster && !loading && !error && (
-        <p className="text-lg font-semibold">Poster: {moviePoster}
-        <img src={'moviePoster'} alt='Movie Poster'> </img>
-        </p>
+        <label className="text-lg font-semibold">Poster
+        <img src={moviePoster} alt='Movie Poster'></img>
+        </label>
       )}
-
-
-      
-{movieLanguage && !loading && !error && (
-        <p className="text-lg font-semibold">Language: {movieLanguage}</p>
-      )}
-      
-{movieLanguage && !loading && !error && (
-        <p className="text-lg font-semibold">Language: {movieLanguage}</p>
-      )}
-      
-{movieLanguage && !loading && !error && (
-        <p className="text-lg font-semibold">Language: {movieLanguage}</p>
-      )}
-
-
-
-
-
-        {/* Display Poster */}
-        {movieYear.poster && movieYear.poster !== "N/A" ? (
-            <img src={movieYear.poster} alt={`${movieYear.title} Poster`} className="mt-4 max-w-xs" />
-          ) : (
-            <p>No poster available.</p>
-          )}
-
 
 
     {movieImdbRating && !loading && !error && (
