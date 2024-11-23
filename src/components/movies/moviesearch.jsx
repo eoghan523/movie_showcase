@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchMovieData } from "../../api/movieApi.js";
+import { fetchMovieData, fetchMovieDetailedData } from "../../api/movieApi.js";
 import { Button } from "@material-tailwind/react";
 
 const MovieSearch = () => {
@@ -26,20 +26,76 @@ const MovieSearch = () => {
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState("");
  
+    // User movie name search:
+  const [searchQuery, setSearchQuery] = useState("");
+    // Movie Data:
+  const [movieId, setMovieId] = useState("");
+  const [movieTitle, setMovieTitle] = useState("");
+  const [movieActors, setMovieActors] = useState("");
+  const [movieAwards, setMovieAwards] = useState("");
+  const [movieCountry, setMovieCountry] = useState("");
+  const [movieDirector, setMovieDirector] = useState("");
+  const [movieGenre, setMovieGenre] = useState("");
+  const [movieLanguage, setMovieLanguage] = useState("");
+  const [moviePlot, setMoviePlot] = useState("");
+  const [moviePoster, setMoviePoster] = useState("");
+  const [movieRated, setMovieRated] = useState("");
+  const [movieRuntime, setMovieRuntime] = useState("");
+  const [movieWriter, setMovieWriter] = useState("");
+  const [movieYear, setMovieYear] = useState("");
+  const [movieImdbRating, setMovieImdbRating] = useState("");
+
+    // Page States:
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSearch = async () => {
     if (!searchQuery) return; 
     setLoading(true);
     setError("");
+
+    // Get movie's IMDB ID
     const data = await fetchMovieData(searchQuery);
     if (data.Response === "True") {
       setMovieYear(data.Search[0].Year);
-      
+      console.log("Setting MovieId to ", data.Search[0].imdbID);
+      setMovieId(data.Search[0].imdbID); // Set movieId from search result
     } else {
-      setMovieYear("");
+      setMovieId("");
       setError("No movie found with that title.");
+      setLoading(false);
+      return;
     }
-    setLoading(false);
+
+    // Wait for movieId to be updated and then fetch detailed movie data
+    if (data.Search[0].imdbID) {
+        console.log("MovieId is ", data.Search[0].imdbID);
+  
+        const dataDetailed = await fetchMovieDetailedData(data.Search[0].imdbID);
+        if (dataDetailed.Response === "True") {
+          setMovieTitle(dataDetailed.Title);
+          setMovieYear(dataDetailed.Year);
+          setMovieGenre(dataDetailed.Genre);
+          setMovieRated(dataDetailed.Rated);
+          setMoviePlot(dataDetailed.Plot);
+          setMovieActors(dataDetailed.Actors);
+          setMovieDirector(dataDetailed.Director);
+          setMovieLanguage(dataDetailed.Language);
+          setMovieCountry(dataDetailed.Country);
+          setMovieAwards(dataDetailed.Awards);
+          setMoviePoster(dataDetailed.Poster);
+          setMovieRuntime(dataDetailed.Runtime);
+          setMovieWriter(dataDetailed.Writer);
+          setMovieImdbRating(dataDetailed.imdbRating);
+        } else {
+          setMovieId("");
+          setError("No movie found with that ID.");
+          setLoading(false);
+          return;
+        }
+      }
+  
+      setLoading(false);
   };
 
   return (
@@ -79,7 +135,6 @@ const MovieSearch = () => {
       {movieYear && !loading && !error && (
         <p className="text-lg font-semibold">Year: {movieYear}</p>
       )}
-   
 
       {movieCountry && !loading && !error && (
         <p className="text-lg font-semibold">Country: {movieCountry}</p>
@@ -142,6 +197,10 @@ const MovieSearch = () => {
           )}
 
 
+
+    {movieImdbRating && !loading && !error && (
+        <p className="text-lg font-semibold">Imdb Rating: {movieImdbRating}</p>
+      )}
     </div>
   );
 };
